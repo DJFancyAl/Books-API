@@ -29,6 +29,16 @@ books.get('/seed', (req, res) => {
 })
 
 
+// Show Book
+books.get('/:id', async (req, res) => {
+    try {
+        const foundBook = await Book.findById(req.params.id)
+        res.status(200).json(foundBook)
+    } catch(err) {
+        res.status(404).json(err)
+    }
+})
+
 
 // Export
 module.exports=books
