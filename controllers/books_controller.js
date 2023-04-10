@@ -16,6 +16,16 @@ books.get('/', async (req, res) => {
 })
 
 
+// Create Book
+books.post('/', async (req, res) => {
+    try {
+        const createdBook = await Book.create(req.body)
+        res.status(200).json(createdBook)
+    } catch(err) {
+        res.status(404).json(err)
+    }
+})
+
 
 // Seed
 books.get('/seed', (req, res) => {
