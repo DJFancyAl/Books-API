@@ -50,5 +50,26 @@ books.get('/:id', async (req, res) => {
 })
 
 
+// Update Book
+books.put('/:id', async (req, res) => {
+    try {
+        const updatedBook = await Book.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect(`/books/${req.params.id}`)
+    } catch(err) {
+        res.status(404).json(err)
+    }
+})
+
+
+// Delete Book
+books.delete('/:id', async (req,res) => {
+    try {
+        const deletedBook = await Book.findByIdAndDelete(req.params.id)
+        res.status(200).json("Book has been deleted!")
+    } catch(err) {
+        res.status(404).json(err)
+    }
+})
+
 // Export
 module.exports=books
