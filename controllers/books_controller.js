@@ -16,5 +16,19 @@ books.get('/', async (req, res) => {
 })
 
 
+
+// Seed
+books.get('/seed', (req, res) => {
+    Book.insertMany(Seed)
+        .then(res.status(200).json({
+            message: 'Seed successful'
+        }))
+        .catch(res.status(400).json({
+            message: 'Seed unsuccessful'
+        }))
+})
+
+
+
 // Export
 module.exports=books
