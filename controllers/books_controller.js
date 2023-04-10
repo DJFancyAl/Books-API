@@ -28,14 +28,13 @@ books.post('/', async (req, res) => {
 
 
 // Seed
-books.get('/seed', (req, res) => {
-    Book.insertMany(Seed)
-        .then(res.status(200).json({
-            message: 'Seed successful'
-        }))
-        .catch(res.status(400).json({
-            message: 'Seed unsuccessful'
-        }))
+books.get('/seed', async (req, res) => {
+    try {
+        const insertedBooks = await Book.insertMany(Seed)
+        res.status(200).json({message: 'Seed successful'})
+    } catch(err) {
+        res.status(400).json({message: 'Seed unsuccessful'})
+    }
 })
 
 
@@ -65,7 +64,7 @@ books.put('/:id', async (req, res) => {
 books.delete('/:id', async (req,res) => {
     try {
         const deletedBook = await Book.findByIdAndDelete(req.params.id)
-        res.status(200).json("Book has been deleted!")
+        res.status(200).json({message: "Book has been deleted!"})
     } catch(err) {
         res.status(404).json(err)
     }
